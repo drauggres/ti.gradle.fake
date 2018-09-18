@@ -1,0 +1,73 @@
+apply plugin: 'com.android.library'
+
+def tiSDKVersion = getRootProject().ext.tiSDKVersion
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+configurations {
+    libs
+}
+
+// If you want gradle to solve your module libraries dependencies, you should
+// put them here as shown below. Libraries (jar's and/or aar) will be placed in
+// `app/libs` directory which is symbolic link to your original `android/lib`
+
+//def exoPlayerVersion = '2.7.3'
+//
+//dependencies {
+//    libs("com.google.android.exoplayer:exoplayer:${exoPlayerVersion}") {
+//        exclude group: 'com.google.android.gms', module: 'play-services-ads'
+//        exclude group: 'com.android.support'
+//    }
+//}
+
+// This task downloads dependencies defined above and puts them in `app/libs`
+task downloadLibrary(type: Copy) {
+    from configurations.libs
+    into libsDirName
+
+    duplicatesStrategy = 'fail'
+}
+
+// If you have external dependencies which you don't want to be included in module,
+// (for example `play services` or `support libraries`) you can them define below.
+// Also you can put here additional titanium modules (e.g. `titanium-network`), so
+// you will have proper code completion
+
+dependencies {
+    annotationProcessor "org.appcelerator.*:kroll-apt:${tiSDKVersion}"
+    annotationProcessor "org.freemarker:freemarker:2.3.14"
+    annotationProcessor "com.googlecode.json-simple:json-simple:1.1.1"
+    implementation "org.appcelerator.kroll:kroll-apt:${tiSDKVersion}"
+    implementation "org.appcelerator.kroll.common:kroll-common:${tiSDKVersion}"
+    implementation "org.appcelerator.titanium.core:titanium:${tiSDKVersion}"
+    implementation "org.appcelerator.titanium.ui:titanium-ui:${tiSDKVersion}"
+    implementation "org.appcelerator.titanium.media:titanium-media:${tiSDKVersion}"
+    implementation "com.android.support:appcompat-v7:28.0.0-rc02"
+    implementation "com.android.support:support-compat:28.0.0-rc02"
+    implementation "com.android.support:support-core-ui:28.0.0-rc02"
+    implementation fileTree(include: ["*.jar", "*.aar"], dir: libsDirName)
+}
+
+// There is no need to use this task, you can always run module build from
+// terminal, but you can create Gradle `Run/Debug Configuration` for it in
+// Android Studio GUI: `Run -> Edit Configurations -> Click Plus -> Gradle`
+// and call module build in one click
+task tiBuild(type: Exec, dependsOn: ['downloadLibrary']) {
+    commandLine 'ti', 'build', '--build-only', '--platform', 'android'
+    workingDir '../android'
+}
+
