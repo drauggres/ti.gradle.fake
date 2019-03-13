@@ -8,8 +8,8 @@ completion in Android Studio for titanium core and modules code and also
 for any of your module dependencies.
 
 ## How to use it ##
- 1. Go to release page and download this repository archive (zip or tar.gz)
- 2. Extract archive content into you module directory
+ 1. Go to [release page](https://github.com/drauggres/ti.gradle.fake/releases) and download this repository archive (zip or tar.gz)
+ 2. Extract content of `ti.gradle.fake-x.y.z` directory from archive into you module directory
  3. Run Android Studio, select `Import project` and choose your module directory
  4. Open the `Project` pane from the left side of the IDE and select the `Project` view.
  5. Open `build.gradle` and change `tiSDKName`
@@ -17,6 +17,14 @@ for any of your module dependencies.
 
 Now you should be able to open you code files from `app/src/main/java`
 and have all features provided by IDE.
+
+```bash
+ $ ti create -t module --id module.id -n module.name -p android -d .
+ $ cd module.name
+ $ wget https://github.com/drauggres/ti.gradle.fake/archive/0.0.1.zip
+ $ cp -r ti.gradle.fake-0.0.1/. .
+ $ rm -r ti.gradle.fake-0.0.1 0.0.1.zip
+ ```
 
 ## Running module build ##
 `ti.gradle.fake` also provides task `tiBuild` which is a simple wrapper of
