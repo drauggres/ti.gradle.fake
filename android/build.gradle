@@ -1,8 +1,8 @@
 import groovy.json.JsonSlurper
 
 ext {
-    tiSDKName = "7.4.0"      // change this to your Ti SDK name, e.g. 7.4.0.GA
-    tiSDKVersion = "7.4.0"   // this should be semver notation
+    tiSDKName = "7.4.1.GA"      // change this to your Ti SDK name, e.g. 7.4.0.GA
+    tiSDKVersion = "7.4.1-ga"   // this should be semver notation
 }
 
 def getSdkPath = { ->
