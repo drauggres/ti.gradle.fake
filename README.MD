@@ -19,15 +19,22 @@ for any of your module dependencies.
 Now you should be able to open you code files from `app/src/main/java`
 and have all features provided by IDE.
 
+Create new module project and init git repo (skip this for existing projects):
 ```bash
  $ ti create -t module --id module.id -n module.name -p android -d .
+ $ git init 
+ $ git add .
+ $ git commit -m 'Initial commit'
+```
+Download `ti.gradle.fake` and migrate project structure:
+```bash
  $ cd module.name
  $ wget https://github.com/drauggres/ti.gradle.fake/archive/0.0.2.zip
  $ unzip 0.0.2.zip
  $ cp -r ti.gradle.fake-0.0.2/. .
  $ rm -r ti.gradle.fake-0.0.2 0.0.2.zip
  $ cd android
- $ ./migrate.sh
+ $ sh migrate.sh
  ```
 
 ## Running module build ##
