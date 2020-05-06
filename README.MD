@@ -1,3 +1,5 @@
+**OUTDATED**: ["refactor(android): build with gradle"](https://github.com/appcelerator/titanium_mobile/pull/11339)
+
 # Ti.Gradle.Fake #
 
 This is a project created for helping in development of native Titanium
